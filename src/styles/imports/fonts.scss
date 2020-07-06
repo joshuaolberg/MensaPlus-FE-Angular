@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display&display=swap');
+
+@mixin font-1 {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+@mixin font-2 {
+  font-family: 'Playfair Display', sans-serif;
+}
+
+html, body, .text-box {
+  @include font-1;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+h1, h2, h3, h4, h5, h6, ul, ol, p {
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+  line-height: inherit;
+  color: $black;
+}
+
+h1, .text-1 {
+  @include font-2;
+  font-size: 33px;
+  font-weight: bold;
+  line-height: 1.4;
+  margin: 18px 0 15px;
+}
+
+h2, .text-2 {
+  @include font-2;
+  font-size: 26px;
+  font-weight: bold;
+  line-height: 1.1;
+  margin: 18px 0 15px;
+}
+
+h3, .text-3 {
+  @include font-2;
+  font-size: 23px;
+  font-weight: bold;
+  line-height: 1.2;
+  margin: 15px 0 12px;
+}
+
+h4, .text-4 {
+  @include font-2;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.2;
+  margin: 13px 0 12px;
+}
+
+h5, .text-5 {
+  @include font-2;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.2;
+  margin: 11px 0 10px;
+}
+
+.text-1, .text-2, .text-3, .text-4, .text-5 {
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+b, strong {
+  font-weight: bold;
+}
+
+// Button Styling //
+
+.btn {
+  position: relative;
+  display: inline-block;
+  background-color: $blue;
+  color: $white;
+  padding: 6px 24px;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin: 10px 10px 10px 0;
+  min-width: 120px;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  @include transition;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 0;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: lighten($blue, 10);
+    text-decoration: none;
+    color: $white;
+  }
+}
+

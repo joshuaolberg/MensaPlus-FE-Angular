@@ -1,0 +1,23 @@
+html, body {
+  background-color: #090035;
+}
+
+img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+}
+
+.wrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
+
+.page {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 95vh;
+  background-color: $white;
+}

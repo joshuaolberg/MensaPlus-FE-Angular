@@ -1,0 +1,54 @@
+<h1 class="text-center" *ngIf="essen">{{essen.name}}: Detailansicht</h1>
+<div class="card-body">
+  <table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Preis</th>
+      <th scope="col">Art</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngIf="essen">
+      <td>{{essen.id}}</td>
+      <td>{{essen.name}}</td>
+      <td>{{essen.preis}}€</td>
+      <td>{{essen.art}}</td>
+    </tr>
+    </tbody>
+  </table>
+  <button (click)="goBack()" type="button" class="btn">Zurück</button>
+  <button *ngIf="authenticationService.isAuthenticatedAdmin" (click)="deleteEssenById()" type="button" class="btn">
+    Essen Löschen
+  </button>
+</div>
+<div class="container" *ngIf="authenticationService.isAuthenticatedAdmin">
+  <div class="col-lg-8 col-sm-12 col-centered">
+    <h2 class="text-center">Essen Bearbeiten</h2>
+    <form *ngIf="essen" [formGroup]="updateEssenForm" (ngSubmit)="updateEssen()">
+      <div class="form-group">
+        <label for="name">Name*</label>
+        <input class="form-control" id="name" type="text" formControlName="name"
+               [ngClass]="{ 'is-invalid': submitted && name.errors?.required }" required>
+        <div *ngIf="submitted && name.errors?.required" class="invalid-feedback">
+          <div>Name wird benötigt.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="preis">Preis</label>
+        <input class="form-control" id="preis" type="number" formControlName="preis">
+      </div>
+      <div class="form-group">
+        <label for="art">Art</label>
+        <select class="form-control" id="art" formControlName="art">
+          <option *ngFor="let key of essenArtOptions" [value]="key" [label]="essenArt[key]"></option>
+        </select>
+      </div>
+      <div *ngIf="successful">Essen wurde erfolgreich gespeichert.</div>
+      <button class="btn" type="submit">Speichern</button>
+    </form>
+  </div>
+</div>
+
+

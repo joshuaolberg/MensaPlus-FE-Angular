@@ -1,0 +1,75 @@
+<h1 class="text-center" *ngIf="essensplan">Mensaplan: KW{{essensplan.kalenderwoche}}</h1>
+<div class="card-body">
+  <table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">EssenProWoche</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngIf="essensplan">
+      <td>{{essensplan.id}}</td>
+      <td>KW{{essensplan.kalenderwoche}}</td>
+      <td>
+        <li class="meals-list" *ngFor="let essen of essensplan.essenProWoche | keyvalue: returnZero">
+          {{essen.key}}: <a routerLink="/essen/{{essen.value.id}}">{{essen.value.name}}</a>
+        </li>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <button (click)="goBack()" type="button" class="btn">Zurück</button>
+  <button (click)="deleteEssensplanById()" type="button" class="btn">Essensplan löschen</button>
+</div>
+
+<div *ngIf="authenticationService.isAuthenticatedAdmin">
+  <h2>Essensplan bearbeiten</h2>
+  <form [formGroup]="updateEssensplanForm" (ngSubmit)="updateEssensplan()">
+    <div class="form-group" *ngIf="essensplan">
+      <label for="kalenderwoche">Kalenderwoche</label>
+      <input class="form-control" type="number" id="kalenderwoche" formControlName="kalenderwoche"
+             [ngClass]="{ 'is-invalid': updateEssensplanSubmitted && kalenderwoche.errors?.required }">
+      <div *ngIf="updateEssensplanSubmitted && kalenderwoche.errors?.required" class="invalid-feedback">
+        Dieses Feld ist ein Pflichtfeld.
+      </div>
+      <div *ngIf="updateEssensplanSucessful">Essensplan erfolgreich bearbeitet.</div>
+      <button class="btn" type="submit">Speichern</button>
+    </div>
+
+  </form>
+
+  <h2>Essen zum Essensplan hinzufügen</h2>
+  <form [formGroup]="addEssenToEssensplanForm" (ngSubmit)="addEssenToEssensplan()">
+    <div class="form-group">
+      <label for="essen">Essen</label>
+      <select class="form-control" id="essen" formControlName="essen">
+        <option *ngFor="let essen of speisekarte" [ngValue]="essen" [label]="essen.name"></option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="wochentag">Wochentag</label>
+      <select class="form-control" id="wochentag" formControlName="wochentag">
+        <option *ngFor="let key of wochentagOptions" [value]="key" [label]="wochentag[key]"></option>
+      </select>
+    </div>
+    <div *ngIf="addEssenSuccessful">Essen wurde erfolgreich hinzugefügt.</div>
+    <button class="btn" type="submit">Hinzufügen</button>
+  </form>
+
+  <h2>Essen vom Essensplan löschen</h2>
+  <form [formGroup]="deleteEssenFromEssensplanForm" (ngSubmit)="deleteEssenFromEssensplan()">
+    <div class="form-group">
+      <label for="essen">Essen</label>
+      <select class="form-control" formControlName="essen">
+        <option selected="selected">Bitte wählen Sie ein Essen aus</option>
+        <option *ngFor="let essen of essensplan?.essenProWoche | keyvalue: returnZero"
+                [ngValue]="{essen: essen.value, wochentag: essen.key}"
+                [label]="essen.value.name"></option>
+      </select>
+    </div>
+    <div *ngIf="deleteEssenSucessful">Essen wurde erfolgreich entfernt.</div>
+    <button class="btn" type="submit">Löschen</button>
+  </form>
+</div>

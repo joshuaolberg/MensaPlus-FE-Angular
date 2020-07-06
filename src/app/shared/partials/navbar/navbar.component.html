@@ -1,0 +1,28 @@
+<header class="page-header">
+  <nav>
+    <a routerLink="/home" class="logo">
+      <img src="../../../../assets/img/elbdev_logo.png" alt="">
+    </a>
+    <div class="outer">
+      <div (click)="toggleBurgerMenu()" class="toggle-button">
+        <span class="bar top"></span>
+        <span class="bar middle"></span>
+        <span class="bar bottom"></span>
+      </div>
+      <ul class="nav-links">
+        <li *ngIf="!this.authenticationService.isAuthenticated">
+          <a routerLink="/login">Login</a>
+        </li>
+        <li *ngIf="this.authenticationService.isAuthenticated">
+          <a routerLink="/essen">Speisekarte</a>
+        </li>
+        <li *ngIf="this.authenticationService.isAuthenticated">
+          <a routerLink="/mensaplan">Mensaplan</a>
+        </li>
+        <li *ngIf="this.authenticationService.isAuthenticated">
+          <a routerLink="/logout">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>

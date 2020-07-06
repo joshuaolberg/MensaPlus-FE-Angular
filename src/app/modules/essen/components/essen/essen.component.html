@@ -1,0 +1,44 @@
+<h1 class="text-center">Speisekarte</h1>
+<div class="card-body">
+  <table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Preis</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let essen of speisekarte">
+      <td><a routerLink="/essen/{{essen?.id}}">{{essen?.name}}</a></td>
+      <td>{{essen?.preis}}€</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="container" *ngIf="authenticationService.isAuthenticatedAdmin">
+  <div class="col-lg-8 col-sm-12 col-centered">
+    <h2 class="text-center">Essen erstellen</h2>
+    <form [formGroup]="addEssenForm" (ngSubmit)="addEssen(addEssenForm.value)">
+      <div class="form-group">
+        <label for="name">Name*</label>
+        <input class="form-control" id="name" type="text" formControlName="name"
+               [ngClass]="{ 'is-invalid': submitted && name.errors?.required }">
+        <div *ngIf="submitted && name.errors?.required" class="invalid-feedback">
+          <div>Name wird benötigt.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="preis">Preis</label>
+        <input class="form-control" id="preis" type="number" formControlName="preis">
+      </div>
+      <div class="form-group">
+        <label for="art">Art</label>
+        <select class="form-control" id="art" formControlName="art">
+          <option *ngFor="let key of essenArtOptions" [value]="key" [label]="essenArt[key]"></option>
+        </select>
+      </div>
+      <div *ngIf="successful">Essen wurde erfolgreich erstellt.</div>
+      <button class="btn" type="submit">Hinzufügen</button>
+    </form>
+  </div>
+</div>

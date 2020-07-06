@@ -1,0 +1,11 @@
+td {
+  li {
+    &.meals-list {
+      list-style-type: none;
+
+      :before {
+        font-weight: bold;
+      }
+    }
+  }
+}

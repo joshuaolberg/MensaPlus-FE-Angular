@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="text-center">Herzlich Willkommen bei Mensa Plus</h1>
+      <p class="text-center">Sie sind eingeloggt als: <b>{{currentUser.role}}</b></p>
+      <p class="text-center" *ngIf="authenticationService.isAuthenticatedAdmin">Sie können Essen und Essenspläne frei
+        bearbeiten.</p>
+      <p class="text-center" *ngIf="!authenticationService.isAuthenticatedAdmin">Sie haben keine Berechtigungen dafür,
+        Essen und Essenspläne zu bearbeiten.</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<h1 class="text-center">Mensaplan</h1>
+<div class="card-body">
+  <table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Kalenderwoche</th>
+      <th scope="col">EssenProWoche</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let essensplan of essensplan">
+      <td><a routerLink="/mensaplan/{{essensplan?.id}}">{{essensplan?.id}}</a></td>
+      <td>KW{{essensplan?.kalenderwoche}}</td>
+      <td>
+        <li *ngFor="let essen of essensplan?.essenProWoche | keyvalue : returnZero">
+          {{essen?.key}}:
+          <a class="meals-list" routerLink="/essen/{{essen?.value.id}}">{{essen.value.name}}</a>
+        </li>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="container" *ngIf="authenticationService.isAuthenticatedAdmin">
+  <div class="col-lg-8 col-sm-12 col-centered">
+    <h2 class="text-center">Essensplan erstellen</h2>
+    <form [formGroup]="addEssensplanForm" (ngSubmit)="addEssensplan(addEssensplanForm.value)">
+      <div class="form-group">
+        <label for="kalenderwoche">Kalenderwoche*</label>
+        <input class="form-control" id="kalenderwoche" type="number" formControlName="kalenderwoche"
+               [ngClass]="{ 'is-invalid': submitted && kalenderwoche.errors?.required }">
+        <div *ngIf="submitted && kalenderwoche.errors?.required" class="invalid-feedback">
+          <div>Bitte geben Sie eine Kalenderwoche an.</div>
+        </div>
+      </div>
+      <div *ngIf="successful">Essensplan wurde erfolgreich erstellt.</div>
+      <button class="btn" type="submit">Essensplan erstellen</button>
+    </form>
+  </div>
+</div>
+

@@ -1,0 +1,41 @@
+td {
+  li {
+    &.meals-list {
+      list-style-type: none;
+
+      :before {
+        font-weight: bold;
+      }
+
+      &:nth-child(1) {
+        :before {
+          content: "Mo: ";
+        }
+      }
+
+      &:nth-child(2) {
+        :before {
+          content: "Di: ";
+        }
+      }
+
+      &:nth-child(3) {
+        :before {
+          content: "Mi: ";
+        }
+      }
+
+      &:nth-child(4) {
+        :before {
+          content: "Do: ";
+        }
+      }
+
+      &:nth-child(5) {
+        :before {
+          content: "Fr: ";
+        }
+      }
+    }
+  }
+}
